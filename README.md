@@ -1,4 +1,4 @@
-# Monde und Ringe des Jupiter, modelliert/simuliert mit OpenSCAD (Moons and Rings of Jupiter modelled/simulated in OpenSCAD)
+## Monde und Ringe des Jupiter, modelliert/simuliert mit OpenSCAD (Moons and Rings of Jupiter modelled/simulated in OpenSCAD)
 
 This document describes the mathematical framework, physical concepts, geometric construction techniques, and overall architecture of the OpenSCAD codebase that models the Jovian system — Jupiter itself, its four ring families, its Galilean satellites, its inner shepherd moons, and its large population of irregular outer moons — together with associated physical phenomena such as the magnetosphere, plasma torus, radiation belts, aurorae, and tidal interaction lines.
 
@@ -6,7 +6,7 @@ This document describes the mathematical framework, physical concepts, geometric
 
 ## 1. Introduction
 
-**Moons & Rings of Jupiter** is a static, parameterised 3-D model of the Jovian system constructed entirely in OpenSCAD — a script-based, CSG (Constructive Solid Geometry) solid-modelling application. The project spans five source files of increasing complexity and visual richness:
+**Moons & Rings of Jupiter** is a static, parameterised 3-D model of the Jovian system constructed entirely in OpenSCAD
 
 *   **`JovianSystem.scad`** — a compact overview scene that places all principal bodies in one coordinate space with simplified geometry.
 *   **`ModelOfJupiter.scad`** — a high-fidelity, procedurally coloured model of Jupiter’s surface based on multi-scale trigonometric field synthesis.
