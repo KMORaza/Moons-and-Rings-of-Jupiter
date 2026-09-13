@@ -252,9 +252,7 @@ relative to its orbital (ecliptic) plane. This is among the smallest axial tilts
 ### 4.3 Orbital Mechanics and Kepler’s Laws
 The orbital radius, angular velocity, and period of each moon follow Kepler’s third law:
 
-$$
-T^2=\frac{4\pi^2}{GM_J}a^3
-$$
+$$T^2=\frac{4\pi^2}{GM_J}a^3$$
 
 where $G$ is the gravitational constant, $M_J$ the mass of Jupiter, $a$ the semi-major axis, and $T$ the orbital period. The model stores real orbital periods as text labels (e.g. $T_{Io}=1.77\text{ d}$, $T_{Eu}=3.55\text{ d}$, etc.) and animated orbital angles are derived from the OpenSCAD parameter `$t`.
 
