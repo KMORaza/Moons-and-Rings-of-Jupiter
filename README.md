@@ -579,3 +579,9 @@ The most expansive catalogue. Structure:
 
 ---
 
+## Pictures/Screenshots
+
+![](https://raw.githubusercontent.com/KMORaza/Moons-and-Rings-of-Jupiter/refs/heads/main/Screenshots/ModelOfJupiter-01.png)
+![](https://raw.githubusercontent.com/KMORaza/Moons-and-Rings-of-Jupiter/refs/heads/main/Screenshots/ModelOfJupiter-02.png)
+![](https://raw.githubusercontent.com/KMORaza/Moons-and-Rings-of-Jupiter/refs/heads/main/Screenshots/ModelOfJupiter-03.png)
+![](https://raw.githubusercontent.com/KMORaza/Moons-and-Rings-of-Jupiter/refs/heads/main/Screenshots/ModelOfJupiter-04.png)
