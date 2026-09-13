@@ -493,17 +493,3 @@ The most expansive catalogue. Structure:
 
 ---
 
-## 8. Conclusion
-
-The **Moons & Rings of Jupiter** OpenSCAD project demonstrates that a substantial body of planetary science can be encoded in pure procedural geometry without any simulation engine or texture-mapping infrastructure. The key mathematical tools are:
-
-*   **Trigonometric Fourier-like series** for multi-scale atmospheric texture synthesis (belts, zones, filaments, polar structures).
-*   **Gaussian functions** as spatial basis functions for atmospheric ribbons, polar rings, storms, and vortices.
-*   **Cubic smoothstep** for artefact-free transitions between atmospheric zones.
-*   **Linear colour interpolation** as the assembly mechanism for a multi-stage colour synthesis pipeline.
-*   **Spherical coordinate parameterisation** enabling all surface features to be expressed as functions of latitude and longitude.
-*   **Elliptical distance metrics** for correctly shaped storm ellipses and the Great Red Spot.
-
-The physics modelled spans orbital mechanics, mean-motion resonances, planetary magnetic dipole fields, tidal interactions, plasma physics (Io torus), radiation belt geometry, and auroral emission patterns — all represented as static geometric approximations faithful to the real Jovian system at the level of visual plausibility.
-
-The five-file hierarchy allows the project to scale gracefully from a quick visual overview (`JovianSystem.scad`) to a richly annotated and physically annotated full system view (`DetailedModelOfJupiter.scad`), demonstrating that OpenSCAD’s functional programming paradigm and parametric geometry primitives are well-suited to scientific visualisation tasks of this complexity.
