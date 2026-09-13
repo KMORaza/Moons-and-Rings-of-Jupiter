@@ -519,7 +519,7 @@ The most expansive catalogue. Structure:
 
 **Moons included (partial list):** Euporie, `S/2003 J 18`, Eupheme, `S/2021 J 3`, `S/2010 J 2`, `S/2016 J 1`, Mneme, Euanthe, `S/2003 J 16`, Harpalyke, Orthosie, Helike, and many more.
 
----
+--- 
 
 ## 6. Geometric Construction Techniques Summary
 
@@ -581,7 +581,8 @@ The most expansive catalogue. Structure:
 
 ## Pictures/Screenshots
 
-![](https://raw.githubusercontent.com/KMORaza/Moons-and-Rings-of-Jupiter/refs/heads/main/Screenshots/ModelOfJupiter-01.png)
-![](https://raw.githubusercontent.com/KMORaza/Moons-and-Rings-of-Jupiter/refs/heads/main/Screenshots/ModelOfJupiter-02.png)
-![](https://raw.githubusercontent.com/KMORaza/Moons-and-Rings-of-Jupiter/refs/heads/main/Screenshots/ModelOfJupiter-03.png)
-![](https://raw.githubusercontent.com/KMORaza/Moons-and-Rings-of-Jupiter/refs/heads/main/Screenshots/ModelOfJupiter-04.png)
+| ![](https://raw.githubusercontent.com/KMORaza/Moons-and-Rings-of-Jupiter/refs/heads/main/Screenshots/ModelOfJupiter-01.png) | ![](https://raw.githubusercontent.com/KMORaza/Moons-and-Rings-of-Jupiter/refs/heads/main/Screenshots/ModelOfJupiter-02.png)
+|---|---|
+|![](https://raw.githubusercontent.com/KMORaza/Moons-and-Rings-of-Jupiter/refs/heads/main/Screenshots/ModelOfJupiter-03.png) | ![](https://raw.githubusercontent.com/KMORaza/Moons-and-Rings-of-Jupiter/refs/heads/main/Screenshots/ModelOfJupiter-04.png) |
+|![](https://raw.githubusercontent.com/KMORaza/Moons-and-Rings-of-Jupiter/refs/heads/main/Screenshots/DetailedModelOfJupiter01.png) | ![](https://raw.githubusercontent.com/KMORaza/Moons-and-Rings-of-Jupiter/refs/heads/main/Screenshots/DetailedModelOfJupiter02.png) | ![](https://raw.githubusercontent.com/KMORaza/Moons-and-Rings-of-Jupiter/refs/heads/main/Screenshots/DetailedModelOfJupiter03.png) | ![](https://raw.githubusercontent.com/KMORaza/Moons-and-Rings-of-Jupiter/refs/heads/main/Screenshots/DetailedModelOfJupiter04.png) | ![](https://raw.githubusercontent.com/KMORaza/Moons-and-Rings-of-Jupiter/refs/heads/main/Screenshots/DetailedModelOfJupiter05.png) | ![](https://raw.githubusercontent.com/KMORaza/Moons-and-Rings-of-Jupiter/refs/heads/main/Screenshots/DetailedModelOfJupiter06.png) | ![](https://raw.githubusercontent.com/KMORaza/Moons-and-Rings-of-Jupiter/refs/heads/main/Screenshots/DetailedModelOfJupiter07.png) | - |
+| ![](https://github.com/KMORaza/Moons-and-Rings-of-Jupiter/blob/main/Screenshots/JovianSystem01.png) | 
