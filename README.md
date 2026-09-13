@@ -84,33 +84,46 @@ The detailed model renders several additional physical structures:
 
 #### 3.1.1 Clamping
 All colour-weight computations are bounded to the interval $[0,1]$ using the clamp function:
+
 $$clamp(x,0,1)=\max(0,\min(1,x))$$
 
 #### 3.1.2 Cubic Smoothstep Interpolation
 The smoothstep function produces a smooth transition between $0$ and $1$ with zero first derivatives at both endpoints, eliminating the sharp boundaries introduced by linear clamping:
+
 $$S(x)=q^2(3-2q),q=clamp(x,0,1)$$
+
 Expanding:
 $$S(x)=3q^2-2q^3$$
+
 Key properties:
-$$S(0)=0,S(1)=1$$
-$$S'(q)=6q(1-q),S'(0)=S'(1)=0$$
+$$S(0)=0,S(1)=1$$,
+$$S'(q)=6q(1-q), 
+$$S'(0)=S'(1)=0$$
 
 #### 3.1.3 Linear (Vector) Interpolation
 Colour blending between two RGB vectors $a$ and $b$ by weight $t$:
+
 $$mix(a,b,t)=a+q(b-a)=(1-q)a+qb,q=clamp(t,0,1)$$
+
 Component-wise:
 $$C_i(t)=a_i+q(b_i-a_i)$$
 
 #### 3.1.4 Periodic Longitude Wrapping
 Longitude $\lambda$ is periodic with period $360$. The wrap function maps any value back to $[-180,180]$:
+
 $$wrap(\lambda)=\lambda-360(\lambda>180),\lambda+360(\lambda<-180),\lambda(\text{otherwise})$$
 
 ### 3.2 Spherical Coordinate System
 Every surface point on Jupiter is parameterised by geodetic latitude $\phi\in[-90,90]$ and longitude $\lambda\in[-180,180)$. The Cartesian position of a point on a sphere of radius $R$ is:
+
 $$P(\phi,\lambda)=(R\cos\phi\cos\lambda,R\cos\phi\sin\lambda,R\sin\phi)$$
+
 This satisfies the sphere equation $x^2+y^2+z^2=R^2$ as can be verified:
+
 $$x^2+y^2=R^2\cos^2\phi(\cos^2\lambda+\sin^2\lambda)=R^2\cos^2\phi$$
+
 $$z^2=R^2\sin^2\phi$$
+
 $$x^2+y^2+z^2=R^2(\cos^2\phi+\sin^2\phi)=R^2$$
 
 ### 3.3 Fourier-like Trigonometric Noise
@@ -126,27 +139,39 @@ $$N_M(\phi,\lambda)=0.42\sin(4.10\lambda+2.00\phi)+0.27\cos(8.70\lambda-3.70\phi
 $$N_F(\phi,\lambda)=0.38\sin(12.0\lambda+5.0\phi)+0.26\cos(23.0\lambda-8.0\phi)+0.18\sin(39.0\lambda+13.0\phi)+0.10\cos(67.0\lambda-21.0\phi)$$
 
 All three fields have the general form of a finite Fourier-like series:
+
 $$N(\phi,\lambda)=\sum_kA_kf_k(\alpha_k\lambda+\beta_k\phi+\phi_k),f_k\in\{\sin,\cos\}$$
+
 Higher spatial frequencies $\alpha_k$ correspond to shorter wavelengths $\lambda_k\propto2\pi/\alpha_k$, generating progressively finer atmospheric texture.
 
 ### 3.4 Wind-Wave Displacement
 Jupiter’s jet streams produce latitudinal oscillations of atmospheric bands. These are modelled by the wind-wave function, a four-term Fourier sum in longitude with a phase parameter $\phi$:
+
 $$W(\lambda,\phi)=3.2\sin(1.35\lambda+\phi)+2.0\sin(2.70\lambda-0.70\phi)+1.15\sin(5.20\lambda+1.40\phi)+0.55\sin(9.70\lambda-1.90\phi)$$
+
 Different frequencies interfere through superposition, producing an aperiodic-looking but fully deterministic longitudinal modulation.
 
 ### 3.5 Atmospheric Ribbon (Gaussian Band)
 Each atmospheric belt or zone is a ribbon: a Gaussian-shaped intensity profile centred on a latitude that oscillates with longitude.
 
 **Step 1 — Shifted centre:**
+
 $$C'(\lambda)=C_0+A\sin(f\lambda+\phi)+0.35W(\lambda,\phi)$$
+
 **Step 2 — Latitudinal displacement:**
+
 $$\delta(\phi,\lambda)=\phi-C'(\lambda)$$
+
 **Step 3 — Gaussian intensity:**
+
 $$R(\phi,\lambda)=\exp[-(\delta/w)^2]$$
+
 At $\delta=0$ the ribbon has its maximum intensity $R=1$; as $|\delta|\to\infty$, $R\to0$. The parameter $w$ controls the effective width of the atmospheric band.
 
 The complete dark-belt field is a weighted superposition of $14$ individual ribbons:
+
 $$D(\phi,\lambda)=\sum_{i=1}^{14}w_iR_i(\phi,\lambda)$$
+
 Similarly for bright belts ($9$ ribbons), dark filaments ($12$ ribbons, narrow $w\approx0.3\text{–}0.42$), and bright filaments ($8$ ribbons).
 
 ### 3.6 Polar Geometry
@@ -158,60 +183,91 @@ Therefore $p=0$ at the poles ($\phi=\pm90$) and $p=90$ at the equator ($\phi=0$)
 
 #### 3.6.2 Polar Blend
 The transition between the equatorial colour model and the polar colour model is controlled by:
+
 $$B_p(\phi)=S\left(clamp\left(\frac{52-p}{16},0,1\right)\right)$$
+
 The blend begins near $p=52$ ($|\phi|\approx38$) and is complete at $p=36$ ($|\phi|\approx54$).
 
 #### 3.6.3 Polar Warp
 A multi-frequency perturbation field creates irregular polar ring geometry:
+
 $$W_p(\lambda,p,\phi)=3.2\sin(\lambda+\phi)+1.9\sin(2\lambda-1.7\phi)+1.15\sin(3\lambda+0.7p+\phi)+0.75\sin(5\lambda-1.2p)+0.40\sin(9\lambda+...)$$
 
 #### 3.6.4 Polar Microstructure
 High-frequency oscillations add fine-grained texture inside the polar cap:
+
 $$M_p(\lambda,p)=0.75\sin(11\lambda+3p)+0.48\sin(19\lambda-4.5p)+0.32\sin(31\lambda+7p)+0.19\sin(47\lambda-10p)+0.10\sin(71\lambda+...)$$
 
 #### 3.6.5 Polar Ring
 A Gaussian-shaped concentric ring in the polar cap, with a varying width:
+
 $$C_r(\lambda,p,\phi,s)=r_0+sW_p(\lambda,p,\phi)+0.35M_p(\lambda,p)$$
+
 $$w_v(\lambda,\phi)=w[0.72+0.28(0.5+0.5\sin(3\lambda+\phi))]$$
+
 $$R_p(\phi,\lambda)=\exp\left[-\left(\frac{p-C_r}{w_v}\right)^2\right]$$
 
 #### 3.6.6 Polar Ring Breaking
 An oscillatory modulation field fragments the polar rings:
+
 $$n(\lambda,\phi)=0.45\sin(\lambda+\phi)+0.30\sin(2\lambda-1.3\phi)+0.20\sin(4\lambda+2.2\phi)+0.12\sin(7\lambda-\phi)$$
+
 $$Q(\lambda,\phi)=0.20+0.80S\left(clamp\left(\frac{n+0.08}{0.35},0,1\right)\right)$$
+
 The broken ring field is then the pointwise product:
+
 $$B_r(\phi,\lambda)=R_p(\phi,\lambda)\cdot Q(\lambda,\phi)$$
+
 Since $Q\ge0.20$, the ring never vanishes completely. Nine concentric broken rings ($r_0=8,13,17.5,22.5,27.5,33,38,43,47.5$) build up the polar band field.
 
 #### 3.6.7 Polar Vortices
 Individual polar cyclones are localised using an approximately Euclidean distance in polar coordinates. For a vortex centred at polar radius $r_0$ and longitude $\lambda_0$:
+
 $$\Delta\lambda=wrap(\lambda-\lambda_0)$$
+
 $$x_v=\Delta\lambda\cos r_0$$
+
 $$y_v=p-r_0$$
+
 $$d_v=\sqrt{x_v^2+y_v^2}$$
+
 $$V(\phi,\lambda)=s\exp\left[-\left(\frac{d_v}{\sigma}\right)^2\right]$$
+
 The cosine factor approximately accounts for the convergence of meridians near the pole. A total of $22$ vortices are superimposed for the polar vortex field.
 
 #### 3.6.8 Polar Crossflow
 Nested non-linear oscillations simulate the transverse atmospheric flow across the polar cap:
+
 $$a=\sin(3\lambda+7p+2\sin(2\lambda))$$
+
 $$b=\sin(6\lambda-4p+\sin(5\lambda))$$
+
 $$c=\sin(13\lambda+9p),d=\sin(23\lambda-15p)$$
+
 $$C_f(\phi,\lambda)=0.45a+0.28b+0.17c+0.10d$$
+
 The inner sine terms in $a$ and $b$ introduce phase modulation, producing more complex structure than a plain Fourier sum.
 
 ### 3.7 Storm Modelling
 Small atmospheric storms use a normalised elliptical distance metric:
+
 $$d_s=\sqrt{\left(\frac{\phi-\phi_c}{a}\right)^2+\left(\frac{wrap(\lambda-\lambda_c)}{b}\right)^2}$$
+
 $$S_s(\phi,\lambda)=smooth(1-d_s)$$
+
 The storm field is maximum at its centre ($d_s=0$) and decays to zero for $d_s\ge1$. Eight storms are superimposed. Storms are wider in longitude than latitude ($b>a$), reflecting the real elongation of Jovian convective storms.
 
 ### 3.8 Great Red Spot
 The Great Red Spot (GRS) is a long-lived anticyclonic storm centred at approximately $22^\circ\text{ S}$, $20^\circ\text{ W}$. It is modelled as an ellipse wider in longitude than latitude:
+
 $$d_{GRS}=\sqrt{\left(\frac{wrap(\lambda+20)}{18}\right)^2+\left(\frac{\phi+22}{7.8}\right)^2}$$
+
 $$M_{GRS}(\phi,\lambda)=smooth(1-d_{GRS})$$
+
 Internal texture is provided by a multi-frequency field:
+
 $$T_{GRS}=0.42+0.23\sin(8\lambda+12\phi)+0.17\cos(17\lambda-9\phi)+0.10\sin(29\lambda+21\phi)+0.08\cos(47\lambda-32\phi)$$
+
 The GRS colour interpolates from a dark reddish-brown to a lighter red using $T_{GRS}$ as the interpolation weight, then blends over the base atmosphere with weight $0.88M_{GRS}$.
 
 ### 3.9 Jupiter Surface Colour Synthesis Pipeline
@@ -232,9 +288,13 @@ The complete colour at any point $(\phi,\lambda)$ is computed by a sequential li
 
 ### 3.10 Orbit Construction Geometry
 Orbit paths for moons are approximated as regular polygons. For a circular orbit of model radius $r$ approximated by $N$ line segments:
+
 $$\text{Circumference: }C=2\pi r$$
+
 $$\text{Segment length: }\ell=\frac{C}{N}=\frac{2\pi r}{N}$$
+
 $$\text{Angular step: }\Delta\alpha=\frac{360}{N}$$
+
 Each segment is a small rectangle of width $\ell$ and thickness $t$, rotated by $i\Delta\alpha$ and translated to radius $r$. At $N=180\text{–}500$ segments the visual result is indistinguishable from a smooth circle.
 
 ---
@@ -258,10 +318,15 @@ where $G$ is the gravitational constant, $M_J$ the mass of Jupiter, $a$ the semi
 
 ### 4.4 Laplace Mean-Motion Resonance
 The three innermost Galilean moons satisfy the Laplace resonance, a near-exact commensurability of mean orbital angular velocities:
+
 $$n_{Io}:n_{Eu}:n_{Ga}=4:2:1$$
+
 or equivalently:
+
 $$\frac{1}{T_{Io}}-\frac{3}{T_{Eu}}+\frac{2}{T_{Ga}}=0$$
+
 In `DetailedModelOfJupiter.scad` the animated orbital angles encode this exactly:
+
 $$\alpha_{Io}=4\cdot360\cdot t,\quad \alpha_{Eu}=2\cdot360\cdot t,\quad \alpha_{Ga}=1\cdot360\cdot t$$
 
 
@@ -269,18 +334,26 @@ The resonance maintains eccentricity in Io’s and Europa’s orbits via repeate
 
 ### 4.5 Magnetic Dipole Field
 Jupiter has the strongest planetary magnetic field in the Solar System. To first approximation, the external field is that of a magnetic dipole whose field lines satisfy:
+
 $$r=LR_J\sin^2\theta$$
+
 where $r$ is the radial distance from Jupiter’s centre, $\theta$ is the colatitude (polar angle), $L$ is the L-shell (McIlwain) parameter (dimensionless, equal to the equatorial crossing distance in units of $R_J$), and $R_J$ is Jupiter’s radius.
 
 Converting to Cartesian coordinates for a field line of L-shell $L$ at azimuthal angle $\phi$:
+
 $$x=LR_J\sin^2\theta\sin\theta\cos\phi$$
+
 $$y=LR_J\sin^2\theta\sin\theta\sin\phi$$
+
 $$z=LR_J\sin^2\theta\cos\theta$$
+
 In the model, field lines are drawn at $L\in\{2.0,3.2,4.8\}$ and $\phi\in\{0,60,...,300\}$, with $\theta$ varying from $8$ to $172$. A magnetotail is separately rendered as a series of curved polylines swept in the anti-sunward ($-x$) direction.
 
 ### 4.6 Roche Limit
 Inside the Roche limit, tidal forces from Jupiter overcome the self-gravity of any satellite, preventing accretion or tearing apart existing bodies. The Roche limit for a fluid satellite is:
+
 $$d_R=2.44R_J\left(\frac{\rho_J}{\rho_m}\right)^{1/3}$$
+
 where $\rho_J$ and $\rho_m$ are the densities of Jupiter and the satellite, respectively. For an approximate rigid-body Roche radius the factor $2.44$ is replaced by $\sim1.26$. The model places the Roche limit at:
 $$r_R=1.75R\text{ (model units)}$$
 which corresponds to $\approx70,000\text{ km}$ at real scale, consistent with Jupiter’s observed ring system lying mostly inside this boundary.
@@ -289,21 +362,25 @@ which corresponds to $\approx70,000\text{ km}$ at real scale, consistent with Ju
 Io’s intense tidal heating drives volcanic plumes that inject approximately $10^3\text{ kg/s}$ of sulphur dioxide and sulphur into space. These molecules are ionised by solar UV and Jupiter’s magnetosphere, forming a dense donut-shaped plasma torus co-orbiting with Io at $r\approx5.9R_J$.
 
 In the model, the torus is rendered as a rotate extrude of an elliptically scaled circle:
+
 $$\text{Torus surface: }P(\theta,\phi)=((r_0+a\cos\phi)\cos\theta,(r_0+a\cos\phi)\sin\theta,ca\sin\phi)$$
+
 where $r_0$ is the torus major radius (set to `ORBIT_IO=80` model units), $a$ is the tube radius ($=9$), and $c\approx0.35$ is a flattening factor reflecting the torus’s thinness relative to its diameter.
 
 ### 4.8 Radiation Belts
 Jupiter’s magnetosphere traps energetic charged particles (electrons and protons) in donut-shaped belts analogous to Earth’s Van Allen belts but far more intense. Three nested belt zones are rendered at scaled radii:
-$$r_{inner}=1.40R$$
-$$r_{middle}=1.85R$$
-$$r_{outer}=2.35R$$
+$$r_{inner}=1.40R$$,
+$$r_{middle}=1.85R$$,
+$$r_{outer}=2.35R$$,
 Each is an elliptically compressed torus (flattening $c\approx0.30\text{–}0.40$), reflecting the belt’s confinement to the magnetic equatorial plane.
 
 ### 4.9 Auroral Phenomena
 Jovian aurorae are powered primarily by the co-rotation breakdown mechanism: as the magnetosphere extends beyond its co-rotation radius, field-aligned currents accelerate electrons into the polar atmosphere, producing ultraviolet and infrared emission at high latitudes. Secondary contributions come from Io’s flux tube footprint.
 
 The auroral oval is centred $\approx15\text{–}20^\circ$ from the pole (polar distance $p\approx17$) and rendered as a Gaussian ribbon:
+
 $$A_{oval}(\phi,\lambda)=\exp\left[-\left(\frac{p-C_a(\lambda)}{w_a}\right)^2\right]$$
+
 where $C_a(\lambda)=17+2.5\sin(3\lambda+1.2)+1.5\sin(5\lambda-0.8)+0.8\sin(8\lambda+2.5)$.
 
 In the 3-D version (`DetailedModelOfJupiter.scad`), aurorae are rendered as conical frustums above each pole with a teal main glow overlaid by a thin red outer ring produced by `difference()` of two coaxial cylinders.
@@ -348,10 +425,15 @@ Dedicated to the surface model of Jupiter alone. Architecture:
 
 #### 5.2.1 Piecewise Spherical Surface Approximation
 The sphere is tessellated as $N_\phi\times N_\lambda$ quadrilateral patches:
+
 $$\phi_1(i)=-90+\frac{180i}{N_\phi},\phi_2(i)=-90+\frac{180(i+1)}{N_\phi}$$
+
 $$\lambda_1(j)=-180+\frac{360j}{N_\lambda},\lambda_2(j)=-180+\frac{360(j+1)}{N_\lambda}$$
+
 Each patch is a polyhedron with four vertices and one quadrilateral face, coloured by evaluating `jupiter_color` at the patch centroid $(\bar{\phi},\bar{\lambda})$:
+
 $$\bar{\phi}=\frac{\phi_1+\phi_2}{2},\bar{\lambda}=\frac{\lambda_1+\lambda_2}{2}$$
+
 Resolution is set adaptively:
 
 **Table 3: Tessellation resolution.**
