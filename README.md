@@ -260,11 +260,8 @@ $$n_{Io}:n_{Eu}:n_{Ga}=4:2:1$$
 or equivalently:
 $$\frac{1}{T_{Io}}-\frac{3}{T_{Eu}}+\frac{2}{T_{Ga}}=0$$
 In `DetailedModelOfJupiter.scad` the animated orbital angles encode this exactly:
-$$
-\alpha_{Io}=4\cdot360\cdot t,\quad
-\alpha_{Eu}=2\cdot360\cdot t,\quad
-\alpha_{Ga}=1\cdot360\cdot t
-$$
+$$\alpha_{Io}=4\cdot360\cdot t,\quad \alpha_{Eu}=2\cdot360\cdot t,\quad \alpha_{Ga}=1\cdot360\cdot t$$
+
 
 The resonance maintains eccentricity in Io’s and Europa’s orbits via repeated gravitational pumping, which drives the intense tidal heating responsible for Io’s volcanism.
 
